@@ -9,6 +9,10 @@
 2. Storing user in DB
     - knexFile + migration + seed
 
-3. template used 
+3. template used and css in public folder
     - EJS
+    - path.join
+
+4. Download bcrypt (hashing password)
+
  

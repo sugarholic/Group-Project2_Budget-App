@@ -1,0 +1,19 @@
+h1{
+    text-align: center;
+    text-decoration: underline;
+    padding-top: 50px;
+}
+
+::placeholder{
+    font-style: italic;
+}
+
+form{
+    margin: 70px;
+    margin-left: 150px;
+    margin-right: 150px;
+    padding: 0,100, 100, 100;
+}
+
+
+

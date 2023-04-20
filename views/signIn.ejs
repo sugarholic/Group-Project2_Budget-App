@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- css -->
+    <link rel="stylesheet" type="text/css" href="/css/signIn.css">
+
     <title>Sign in</title>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    
 </head>
-<body>
+<body style="background-color: rgba(126, 145, 165, 0.684);">
     <h1> <strong> Sign In </strong> </h1>
+
+    <!-- bootstrap forms -->
+    <!-- only email, password-->
+    <form action="/user/signIn" method="POST">
+        <form action="/user/signIn" method="POST">
+            <div class="form-group">
+                <label for="email"><strong>Email:</strong></label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="password"><strong>Password:</strong></label>
+                <input type="password" class="form-control" id="password" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-secondary"><strong>Submit</strong></button> <br> <br>        
+
+        <a href="/user/signUp" style="text-decoration: underline; color: rgb(92, 64, 230)">Don't have an account? Register</a>
+    </form>
     
 </body>
 </html>
