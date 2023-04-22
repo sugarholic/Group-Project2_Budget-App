@@ -13,7 +13,7 @@ const port = 8080;
 //middlewares for the ejs, routes
 app.set('view engine', 'ejs');
 //middlewares
-app.use(bodyParser.urlencoded({extended: true})); //send details from front-end 
+app.use(bodyParser.urlencoded({extended: false})); //send details from front-end 
 app.use(bodyParser.json());
 
 //app configuration
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //get request for home
 app.get("/home", (req, res) => {
-    res.render ("index");
+    res.render ("home");
 });
 
 //get sign up
@@ -39,6 +39,11 @@ app.get("/user/signOut", (req, res) => {
     res.render("signOut")
 });
 
+//get index
+app.get("/budget", (req, res) => {
+    res.render("index");
+})
+
 //post
 //post sign up
 app.post("/user/signUp", bodyParser.json(), (req, res) => {
@@ -49,20 +54,18 @@ app.post("/user/signUp", bodyParser.json(), (req, res) => {
 
     console.log(name, email, password, password2);
 
-    //form validation
-    // let errors = [];
-    // //if some fields are not filled in in registration --> error
-    // if (!name || !email || !password || !password2) {
-    //     errors.push({message: "Please enter all fields!"});
-    // }
-    // //if password are not the same as confirmed password --> error
-    // if (password != password2) {
-    //     errors.push({message: "Password and confirmed password should be the same"});
-    // }
+    //form validation (1.if all fields are not filled in, 2. if password and password2 does not match)
+    let errors = [];
 
-    // if(errors.length > 0) {
-    //     res.render("singUp", {errors});
-    // }
+    if (!name || !email || !password ||!passwrod2) {
+        errors.push({message: "Please fill in all the fields"});
+    }
+    if (password !== password2) {
+        errors.push({message: "Passwords must match"});
+    }
+    if(errors.length > 0) {
+        res.render("signUp", (errors));
+    } 
 });
 
 app.listen(port, () => {

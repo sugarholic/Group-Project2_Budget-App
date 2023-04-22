@@ -4,10 +4,13 @@
  */
 exports.up = function(knex) {
     return knex.schema.createTable("users", (table) => {
-        table.increments("id").primary();
+        table.increments("id").primary().unsigned();
         table.string("name").notNullable();
         table.string("password").notNullable();
         table.string("email").notNullable();
+        table.string("facebookID");
+        table.string("accessToken");   //needed when logging in in facebook
+        table.string("google_id");
         table.timestamp("create_at").defaultTo(knex.fn.now());
     })
   

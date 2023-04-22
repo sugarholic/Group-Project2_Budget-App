@@ -1,20 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" href="/css/index.css">      
-    <title>start</title>
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>        
-</head>
-<body style="background-color: rgba(126, 145, 165, 0.684);">
-    <h1 style="padding-top: 100px;">Welcome to the Budget Application</h1>
-    <div>
-        <a href="/user/signIn" style="text-decoration: underline; color: rgb(92, 64, 230);">Click here to sign in</a>   
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    
+    <title>My Budget App</title>
+  </head>
+  <body>
+    <div class="container">
+      <p id="error_msg"></p>
+      <div class="title">
+        <h1 class="title">
+          My Budget <a href="#"><i class="fa fa-money"></i></a>
+        </h1>
+      </div>
+
+      <h3>New Entry</h3>
+
+      <div class="transButton">
+            <button class="addButton">Add</button>            
+            <button class="minusButton">Minus</button>            
+      </div>
+
+      <form id="form">
+        <div class="form-control">
+          <label for="text">Description</label>
+          <input
+            type="text"
+            id="text"
+            onfocus="this.value=''"
+            placeholder="Enter text..."
+          />
+        </div>
+        <div class="form-control">
+          <label for="amount">Amount (+/-) <br /> </label>
+          <input
+            type="number"
+            id="amount"
+            onfocus="this.value=''"
+            placeholder="Enter value..."
+          />
+        </div>
+        <button class="btn">Add transaction</button>
+      </form>
+      <br />
+
+      <div class="income-expense">
+        <div class="bg-dark">
+          <h4>Inflow</h4>
+          <p class="income" id="income">$0.00</p>
+        </div>
+        <div class="bg-dark">
+          <h4>Outflow</h4>
+          <p class="expense" id="expense">$0.00</p>
+        </div>
+        <div class="bg-dark">
+          <h4>Balance</h4>
+          <p id="balance">$0.00</p>
+        </div>
+      </div>
+      <h3>History</h3>
+      <!-- Dynamic unordered list to display the various transactions -->
+      <ul id="list" class="list"></ul>
+      <footer>
+        <p style="line-height: 30px;">Budget App</p>
+        <p style="color:bisque">Catherine Lee</p>
+        <p style="color:bisque">Patrick Agabon</p>
+      </footer>
     </div>
-</body>
+    <!-- <script src="main.js"></script> -->
+  </body>
 </html>

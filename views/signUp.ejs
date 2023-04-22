@@ -12,41 +12,42 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
-<body style="background-color: rgba(126, 145, 165, 0.684);">
+<body style="background-color: hsl(30, 34%, 83%); font-family: Montserrat, sans-serif;">
     <h1><strong>Sign Up</strong></h1>
-<!-- 
-    <ul>
-        <% if(typeof errors != 'undefined') { %>
-            <% errors.forEach(error) => {%>
-            <li><%= error.message %></li>
-         <%   } %>
-            
-       <% } %>
-    </ul> -->
-
     <!-- bootstrap forms -->
     <!-- name, email, password, confirm password, submit button, a tag -->
+
+    <!-- <ul>
+        <% if(typeof errors != 'undefined') { %> <% errors.forEach(error =>{ %>
+        <li><%= error.message %></li> 
+        <%}) %> <% } %>
+    </ul> -->
 
     <form action="/user/signUp" method="POST">
         <div class="form-group">
           <label for="name"><strong>Name:</strong></label>
-          <input type="name" class="form-control" id="name" placeholder="Enter Name">
+          <input type="name" class="form-control" id="name" placeholder="Enter Name" style="border-radius: 20px;">
         </div>
         <div class="form-group">
             <label for="email"><strong>Email:</strong></label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" style="border-radius: 20px;">
         </div>
         <div class="form-group">
             <label for="password"><strong>Password:</strong></label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input type="password" class="form-control" id="password" placeholder="Password" style="border-radius: 20px;">
         </div>
         <div class="form-group">
             <label for="password2"><strong>Confirm Password:</strong></label>
-            <input type="password" class="form-control" id="password2" placeholder="Re-enter Password">
+            <input type="password" class="form-control" id="password2" placeholder="Re-enter Password" style="border-radius: 20px;">
         </div>
-        <button type="submit" class="btn btn-secondary"><strong>Submit</strong></button> <br> <br>
 
-        <a href="/user/signIn" style="text-decoration: underline; color: rgb(92, 64, 230)">Already a user? Please sign in to your account.</a>
+        <div class="button">
+        <button type="submit" class="btn btn-secondary"><strong>Submit</strong></button> <br> <br>
+        </div>
+
+        <a href="/user/signIn" style="text-decoration: underline; color: #976752">Already a user? Please sign in to your account.</a> <br>
+
+        <a href="/auth/facebook" style="text-decoration: underline; color: #976752">Sign in with Facebook</a>
     </form>    
     <!-- bootstrap poppers -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

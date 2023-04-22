@@ -6,6 +6,7 @@ h1{
 
 ::placeholder{
     font-style: italic;
+    font-size: 18px;
 }
 
 form{
@@ -13,4 +14,11 @@ form{
     margin-left: 150px;
     margin-right: 150px;
     padding: 0,100, 100, 100;
+    font-size: 20px;
+}
+
+.button{
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
 }
