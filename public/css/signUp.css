@@ -23,3 +23,9 @@ form{
     padding-top: 10px;
 }
 
+ul{
+    color: red;
+    font-weight: bold;
+    text-align: left;
+    font-size: 18px;
+}

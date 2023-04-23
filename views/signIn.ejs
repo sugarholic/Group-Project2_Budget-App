@@ -18,17 +18,24 @@
 <body style="background-color: hsl(30, 34%, 83%); font-family: Montserrat, sans-serif;">
     <h1> <strong> Sign In </strong> </h1>
 
+    <!-- flash message -->
+    <ul>
+        <% if(messages.success_msg) {%>
+        <li><%= messages.success_msg %></li>
+        <% } %>
+    </ul>
+
     <!-- bootstrap forms -->
     <!-- only email, password-->
     <form action="/user/signIn" method="POST">
         <form action="/user/signIn" method="POST">
             <div class="form-group">
                 <label for="email"><strong>Email:</strong></label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" style="border-radius: 20px;">
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter email" style="border-radius: 20px;">
             </div>
             <div class="form-group">
                 <label for="password"><strong>Password:</strong></label>
-                <input type="password" class="form-control" id="password" placeholder="Password" style="border-radius: 20px;">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" style="border-radius: 20px;">
             </div>
             <div class="button">
             <button type="submit" class="btn btn-secondary"><strong>Submit</strong></button> <br> <br>        

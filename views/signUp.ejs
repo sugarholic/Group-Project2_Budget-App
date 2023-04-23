@@ -17,28 +17,28 @@
     <!-- bootstrap forms -->
     <!-- name, email, password, confirm password, submit button, a tag -->
 
-    <!-- <ul>
+    <ul>
         <% if(typeof errors != 'undefined') { %> <% errors.forEach(error =>{ %>
         <li><%= error.message %></li> 
         <%}) %> <% } %>
-    </ul> -->
+    </ul>
 
     <form action="/user/signUp" method="POST">
         <div class="form-group">
           <label for="name"><strong>Name:</strong></label>
-          <input type="name" class="form-control" id="name" placeholder="Enter Name" style="border-radius: 20px;">
+          <input type="name" class="form-control" id="name" name="name" placeholder="Enter Name" style="border-radius: 20px;">
         </div>
         <div class="form-group">
             <label for="email"><strong>Email:</strong></label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" style="border-radius: 20px;">
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" name="email" style="border-radius: 20px;">
         </div>
         <div class="form-group">
             <label for="password"><strong>Password:</strong></label>
-            <input type="password" class="form-control" id="password" placeholder="Password" style="border-radius: 20px;">
+            <input type="password" class="form-control"  name="password" id="password" placeholder="Password" style="border-radius: 20px;">
         </div>
         <div class="form-group">
             <label for="password2"><strong>Confirm Password:</strong></label>
-            <input type="password" class="form-control" id="password2" placeholder="Re-enter Password" style="border-radius: 20px;">
+            <input type="password" class="form-control" name="password2"  id="password2" placeholder="Re-enter Password" style="border-radius: 20px;">
         </div>
 
         <div class="button">
