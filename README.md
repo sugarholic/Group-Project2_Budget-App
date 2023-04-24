@@ -15,4 +15,6 @@
 
 4. Download bcrypt (hashing password)
 
+5. passport & passport local (passport.js)
+
  

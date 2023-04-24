@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css"/>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    
     <title>My Budget App</title>
   </head>
+  <div>
+    <button class="outBtn">
+        <a href="/user/signOut">Sign Out</a>
+    </button>
+  </div>
   <body>
     <div class="container">
       <p id="error_msg"></p>
@@ -21,12 +25,6 @@
       </div>
 
       <h3>New Entry</h3>
-
-      <div class="transButton">
-            <button class="addButton">Add</button>            
-            <button class="minusButton">Minus</button>            
-      </div>
-
       <form id="form">
         <div class="form-control">
           <label for="text">Description</label>
@@ -37,8 +35,11 @@
             placeholder="Enter text..."
           />
         </div>
+        
         <div class="form-control">
-          <label for="amount">Amount (+/-) <br /> </label>
+          <label for="amount">Amount <br /> </label>
+          <button id="add" onclick="increaseValue()">+</button>
+          <button id="subtact" onclick="decreaseValue()">-</button>
           <input
             type="number"
             id="amount"
@@ -46,6 +47,7 @@
             placeholder="Enter value..."
           />
         </div>
+
         <button class="btn">Add transaction</button>
       </form>
       <br />
@@ -73,6 +75,7 @@
         <p style="color:bisque">Patrick Agabon</p>
       </footer>
     </div>
-    <!-- <script src="main.js"></script> -->
+
+    <script src="/js/main.js"></script>
   </body>
 </html>

@@ -4,6 +4,10 @@ const app = express();
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const flash = require("express-flash");
+const passport = require("passport");
+
+const initializePassport = require("./passport");
+initializePassport(passport);
 // const fs = require("fs");
 // const https = require ("https");
 
@@ -16,10 +20,6 @@ const path = require("path");   //for css folder and views (used in sign up, in 
 //knexfile and knex
 const knexfile = require("./knexfile").development
 const knex = require("knex")(knexfile);
-
-// //passport
-// const setupPassport = require("./Passport/passport");
-// const router = require("./router")(express);
 
 //config
 var pg = require('pg');
@@ -61,6 +61,9 @@ app.use(session({
 }));
 
 app.use(flash());
+//passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // //localhost.crt & localhost.key
 // const options = {
@@ -87,25 +90,25 @@ app.get("/home", (req, res) => {
 });
 
 //get sign up
-app.get("/user/signUp", (req, res) => {
+app.get("/user/signUp", checkAuthenticated, (req, res) => {
     res.render("signUp");
 });
 
 //get sign in
-app.get("/user/signIn", (req, res) => {
+app.get("/user/signIn", checkAuthenticated, (req, res) => {
     res.render("signIn");
 });
 
 //get sign out
-app.get("/user/signOut", (req, res) => {
+app.get("/user/signOut", checkNotAuthenticated, (req, res) => {
     res.render("signOut")
 });
 //End get request
 
-// //get index
-// app.get("/budget", (req, res) => {
-//     res.render("index");
-// })
+//get index
+app.get("/budget", (req, res) => {
+    res.render("index");
+})
 
 //post
 //post sign up
@@ -162,6 +165,26 @@ app.post("/user/signUp", async (req, res) => {
         })
     }
 });
+
+//passport (post)
+app.post("/user/signIn", passport.authenticate("local", {
+    successRedirect: "/budget",
+    failureRedirect: "/user/signIn",
+    failureFlash: true    //show messages we set earlier
+}));
+
+function checkAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        return res.redirect("/budget");
+    } next();
+}
+
+function checkNotAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+        return next()
+    }
+    res.redirect("user/signIn");
+}
 
 app.listen(port, () => {
     console.log("application is listening to port 8080");

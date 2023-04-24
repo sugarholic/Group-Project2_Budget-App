@@ -25,6 +25,12 @@
         <% } %>
     </ul>
 
+    <ul>
+        <% if(messages.error) {%> 
+        <li><%= messages.error %></li>  
+        <% } %>                 
+    </ul>
+
     <!-- bootstrap forms -->
     <!-- only email, password-->
     <form action="/user/signIn" method="POST">
