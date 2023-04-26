@@ -1,18 +1,18 @@
 const express = require("express");
 const app = express();
-// const morgan = require("morgan");  //token
 const bcrypt = require("bcrypt");
 const session = require("express-session");
 const flash = require("express-flash");
 const passport = require("passport");
 
+//facebook strategy
+const facebookStrategy = require("passport-facebook").Strategy
+//google strategy
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+
+//get passport.js
 const initializePassport = require("./passport");
 initializePassport(passport);
-// const fs = require("fs");
-// const https = require ("https");
-
-// //morgan
-// app.use(morgan("combined"));
 
 const bodyParser = require("body-parser")
 const path = require("path");   //for css folder and views (used in sign up, in and out)
@@ -39,14 +39,6 @@ client.connect();
 //port
 const port = 8080;
 
-// //session
-// app.use(session({
-//     secret: "superSecret",
-//     resave: false,
-//     saveUninitialized: false,
-//     cookie: {secure: false}
-// }))
-
 
 //middlewares for the ejs, routes
 app.set('view engine', 'ejs');
@@ -57,27 +49,20 @@ app.use(bodyParser.urlencoded({extended: false|true})); //send details from fron
 app.use(session({
     secret: "superSecret",
     resave: false,   
-    saveUninitialized: false
+    saveUninitialized: true
 }));
 
 app.use(flash());
 //passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+// app.use(session({
+//     secret: "superSecret",
+//     resave: true,
+//     saveUninitialized: true}));
 
-// //localhost.crt & localhost.key
-// const options = {
-//     cert: fs.readFileSync("./localhost.crt"),
-//     key: fs.readFileSync("./localhost.key")
-// };
-
-// setupPassport(app);
-
-// app.use("/", router);
-
-// https.createServer(options, app).listen(8080, () => {
-//     console.log("App is listening to port 8080")
-// });
+// //social logins
+// app.use(cookieParser());
 
 //app configuration
 app.use(express.static(path.join(__dirname, 'public')));
@@ -185,6 +170,85 @@ function checkNotAuthenticated(req, res, next) {
     }
     res.redirect("user/signIn");
 }
+
+//social signIns
+//google
+passport.use("google", new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:8080/auth/google/callback",    
+},
+    async(accessToken, refreshToken, profile, done) => {
+        const google_id = profile.id;
+        const email = profile.emails[0].value;
+        console.log("id", google_id);
+        console.log("email", email);
+        const user = await knex("users").where({google_id}).first();
+        if(!user) {
+            const newUser = {
+                google_id,
+                email,
+            };
+            const id = await knex("users").insert(newUser).returning("id");
+            newUser.id = id[0].id;
+            return done(null, newUser);
+        } else {
+            return done(null, user);
+        }
+    }
+));
+
+//get request for google
+app.get("/auth/google", passport.authenticate("google", {scope: ["email", "profile"]}));
+
+//define callback url
+app.get("/auth/google/callback", passport.authenticate("google", { 
+    successRedirect: "/budget",
+    failureRedirect: "/user/signIn",
+}));
+
+
+//facebook
+passport.use(new facebookStrategy({
+    clientID: process.env.AppID,
+    clientSecret: process.env.AppSecret,
+    callbackURL: `/auth/facebook/callback`,
+    profileFields: [          
+    "id",
+    "email",
+    "name",
+    "gender",
+    "displayName",
+    "profileUrl",
+    ],
+}, async (accessToken, refreshToken, profile, done) => {
+    console.log(profile);
+
+    let userResult = await knex("users").where({facebookID: profile.id});
+    if(userResult == 0) {
+        let user = {
+         facebookID: profile.id,
+         email: profile.displayName,
+        // let accessToken = accessToken;            
+        };  
+        let query = await knex("users") .insert(user).returning("id");
+        user.id = query[0];
+        done(null,user);
+    } else {
+        done(null, userResult[0]);
+    }
+})
+);
+
+//get request for facebook
+app.get("/auth/facebook", passport.authenticate("facebook", {scope: "email"}));
+
+//define callback url
+app.get('/auth/facebook/callback', passport.authenticate("facebook", { 
+    successRedirect: '/budget',
+    failureRedirect: '/user/signIn',
+}));
+
 
 app.listen(port, () => {
     console.log("application is listening to port 8080");

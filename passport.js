@@ -4,9 +4,14 @@
 // const router = require("./router")(express);
 
 const LocalStrategy = require("passport-local").Strategy;
+// const passport = require("passport");
 //compare user password and hashed password
 const bcrypt = require("bcrypt");
 const { authenticate } = require("passport");
+
+// module.exports = (app) => {
+// app.use(passport.initialize());
+// app.use(passport.session());
 
 //config
 var pg = require('pg');
@@ -58,12 +63,18 @@ const authenticateUser = (email, password, done) => {
 
     passport.deserializeUser((id, done) => {
         client.query(`SELECT * FROM users WHERE id = $1`, [id], (err, results) => {
-            if(err) {
-                throw err
-            } 
+            // if(err) {
+            //     throw err
+            // } 
             return done(null, results.rows[0]);
         });
     });
 };
 
+// require("./strategies/facebook-strategy")(passport);
+
+// require("./passport/google-strategy");
+
 module.exports = initialize;
+
+// };

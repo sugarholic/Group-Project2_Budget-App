@@ -5,8 +5,8 @@
 exports.up = function(knex) {
     return knex.schema.createTable("users", (table) => {
         table.increments("id").primary().unsigned();
-        table.string("name").notNullable();
-        table.string("password").notNullable();
+        table.string("name");
+        table.string("password");
         table.string("email").notNullable();
         table.string("facebookID");
         table.string("accessToken");   //needed when logging in in facebook
