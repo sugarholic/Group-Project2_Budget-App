@@ -47,10 +47,13 @@ function addTransaction(e) {
 
 // Clicking the (+/-) buttons 
 function increaseValue() {
-  let value = parseInt(document.getElementById('amount').value, 10);
-  value = isNaN(value) ? 0 : value;
-  value++;
-  document.getElementById('amount').value = value;
+  const input = document.getElementById('amount');
+  const maxValue = parseInt(input.getAttribute('max'), 10);
+  let value = parseInt(input.value, 10);
+  if(value < maxValue) {
+    value ++;
+    input.value = value;
+  }
 }
 
 function decreaseValue() {
@@ -59,6 +62,7 @@ function decreaseValue() {
     value--;
     document.getElementById('amount').value = "-" + value;
 }
+
 
 // Generate random ID
 function generateID() { 
