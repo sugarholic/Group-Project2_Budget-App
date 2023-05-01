@@ -67,6 +67,7 @@ const authenticateUser = (email, password, done) => {
             //     throw err
             // } 
             return done(null, results.rows[0]);
+            // return done(null);
         });
     });
 };

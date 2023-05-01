@@ -3,6 +3,7 @@
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
+    //transaction_id, description, amount, users_id
     return knex.schema.createTable("transaction", (table) => {
         table.increments("transaction_id").primary().unsigned();
         table.string("description");

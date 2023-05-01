@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 const flash = require("express-flash");
 const passport = require("passport");
+const cors = require("cors");
 
 //facebook strategy
 const facebookStrategy = require("passport-facebook").Strategy
@@ -42,6 +43,8 @@ const port = 8080;
 
 //middlewares for the ejs, routes
 app.set('view engine', 'ejs');
+
+app.use(cors());
 
 app.use(bodyParser.json());
 //middlewares
@@ -90,10 +93,42 @@ app.get("/user/signOut", checkNotAuthenticated, (req, res) => {
 });
 //End get request
 
-//get index
+//get index (budget app)
 app.get("/budget", (req, res) => {
     res.render("index");
 })
+
+app.get("/budget", async (req, res) => {
+    try {
+        const trans = await client.query(`SELECT * FROM transaction`);
+        res.json(trans.rows);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+//post index (budget app) description, amount
+app.post("/budget", async(req, res) => {
+    try {
+        const {description, amount} = req.body;
+        const newTrans = await client.query(
+            `INSERT INTO transaction (description, amount) VALUES ($1, $2) RETURNING *`, [description, amount]
+        );
+        res.json(newTrans.rows[0]);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
+app.delete("/budget/:id", async (req, res) => {
+    try{
+        const {id} = req.params;
+        const transDelete = await client.query(`DELETE FROM transaction WHERE transaction_id = $1`, [id]);
+        console.log("transaction is deleted");
+    } catch (err) {
+        console.log(err);
+    }
+});
 
 //post
 //post sign up
